@@ -1,4 +1,4 @@
-name: Generate Snake
+name: Generate Animated Snake (Ultra Dark Edition)
 
 on:
   schedule:
@@ -13,17 +13,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Generate snake
+      - name: Generate snake (dark + animated + multiple formats)
         uses: Platane/snk@v3
         with:
           github_user_name: ${{ github.repository_owner }}
+          palette: github-dark
+          color_snake: "#00ff9f"
+          color_dots: "#1b1f23,#0e4429,#006d32,#26a641,#39d353"
           outputs: |
             dist/snake.svg
+            dist/snake-dark.svg
+            dist/snake.gif
 
-      - name: Deploy
+      - name: Deploy to GitHub Pages branch
         uses: crazy-max/ghaction-github-pages@v3
         with:
           target_branch: output
           build_dir: dist
+          keep_history: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
